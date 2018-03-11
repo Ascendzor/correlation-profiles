@@ -1,0 +1,45 @@
+service: correlations
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  profile: bitbybit
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "*"
+      Resource:
+        - "*"
+
+functions: # Your "Functions"
+  getActivities:
+    handler: handler.create
+    events:
+      - http:
+          path: create
+          method: post
+      - http:
+          path: get
+          method: get
+
+resources:
+  Resources:
+    FoodDynamoDbTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: id
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: correlation-profiles
+
+plugins:
+  - serverless-step-functions

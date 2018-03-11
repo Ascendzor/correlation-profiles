@@ -8,10 +8,10 @@ const uuid = require('uuid')
 //   email: 'abc@easy.as'
 // }
 module.exports.create = function(event, context, callback) {
-  const body = JSON.parse(event.body)
+  const {password, email} = JSON.parse(event.body)
   const params = {
     TableName: 'correlation-profiles',
-    Item: body
+    Item: {password, email}
   }
 
   dynamoDb.put(params, err => {
@@ -27,7 +27,8 @@ module.exports.create = function(event, context, callback) {
 //   password: 'abceasyas123'
 // }
 module.exports.get = function(event, context, callback) {
-  const {password} = event
+  const {password} = JSON.parse(event.body)
+  console.log(event)
   if(!password) return callback({statusCode: 500, body: 'password was incorrect'})
 
   dynamoDb.scan({TableName: 'correlation-profiles'}, (err, res) => {

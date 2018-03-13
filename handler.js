@@ -17,7 +17,7 @@ module.exports.signin = function(event, context, callback) {
     	FromEmail: 'development@bitbybit.nz',
     	FromName: 'bitbybit',
     	Subject: 'Sign in to Correlations',
-    	'Text-part': 'Hello, here is your sign in url http://localhost:3000/#jwt='+token,
+    	'Text-part': 'Hello, here is your sign in url https://ascendzor.github.io/correlation-app/#jwt='+token,
     	Recipients: [{'Email': email}]
   }).then(res => {
     callback(null, {statusCode: 200})

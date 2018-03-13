@@ -9,8 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.207.0",
-    "serverless": "^1.26.1",
-    "uuid": "^3.2.1"
+    "aws-sdk": "^2.208.0",
+    "jsonwebtoken": "^8.2.0",
+    "node-mailjet": "^3.2.1",
+    "serverless": "^1.26.1"
   }
 }

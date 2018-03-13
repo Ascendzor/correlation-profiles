@@ -11,35 +11,18 @@ provider:
       Resource:
         - "*"
 
-functions: # Your "Functions"
-  getActivities:
-    handler: handler.create
+functions:
+  signin:
+    handler: handler.signin
     events:
       - http:
-          path: create
+          path: signin
           method: post
+          cors: true
+  getProfiles:
+    handler: handler.get
+    events:
       - http:
           path: get
           method: get
-
-resources:
-  Resources:
-    FoodDynamoDbTable:
-      Type: 'AWS::DynamoDB::Table'
-      DeletionPolicy: Retain
-      Properties:
-        AttributeDefinitions:
-          -
-            AttributeName: id
-            AttributeType: S
-        KeySchema:
-          -
-            AttributeName: id
-            KeyType: HASH
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
-        TableName: correlation-profiles
-
-plugins:
-  - serverless-step-functions
+          cors: true
